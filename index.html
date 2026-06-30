@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Draft Login Issue Identifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f4f1; --surface: #fff; --surface-2: #f0efe9;
+      --border: #e2e0d8; --border-strong: #c8c6bc;
+      --text: #1a1917; --text-muted: #6b6860; --text-faint: #9b9890;
+      --blue: #1a56db; --blue-light: #eff4ff; --blue-text: #1e429f;
+      --radius: 10px; --radius-sm: 6px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2.5rem 1rem; }
+    .container { max-width: 620px; margin: 0 auto; }
+    header { margin-bottom: 2rem; }
+    .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 8px; }
+    h1 { font-size: 26px; font-weight: 600; line-height: 1.2; }
+    .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 10px; }
+    .q-card:focus-within { border-color: var(--blue); }
+    .q-num { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+    .q-text { font-size: 15px; font-weight: 500; margin-bottom: 14px; line-height: 1.5; }
+    .q-text code { font-family: 'DM Mono', monospace; font-size: 13px; background: var(--surface-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; color: var(--blue-text); }
+    select { width: 100%; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%236b6860' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+    select:focus { outline: none; border-color: var(--blue); background-color: var(--surface); }
+    .btn-row { display: flex; gap: 10px; margin-top: 18px; }
+    .btn-submit { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #fff; background: var(--blue); border: none; border-radius: var(--radius-sm); padding: 10px 24px; cursor: pointer; }
+    .btn-submit:hover { background: #1447c0; }
+    .btn-reset { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 18px; cursor: pointer; }
+    .btn-reset:hover { border-color: var(--border-strong); color: var(--text); }
+    .error-msg { font-size: 13px; color: #c81e1e; margin-top: 10px; display: none; }
+    .error-msg.show { display: block; }
+    .result { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-top: 18px; }
+    .result.show { display: block; }
+    .result-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 14px; }
+    .script-body { font-size: 15px; line-height: 1.9; color: var(--text); }
+    .script-body p { margin: 0; }
+    .script-body .spacer { height: 8px; }
+    .script-body a { color: var(--blue); word-break: break-all; }
+    footer { margin-top: 2.5rem; text-align: center; font-size: 12px; color: var(--text-faint); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <p class="eyebrow">Support Decision Tool</p>
+      <h1>Draft Login Issue Identifier</h1>
+    </header>
+
+    <div class="q-card">
+      <p class="q-num">Question 1</p>
+      <p class="q-text">In admin panel, do they have a UUID?</p>
+      <select id="q1">
+        <option value="">— Select an answer —</option>
+        <option value="yes">Yes UUID</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+
+    <div class="q-card">
+      <p class="q-num">Question 2</p>
+      <p class="q-text">Are they going to <code>https://draft.clio.com/signin/</code>?</p>
+      <select id="q2">
+        <option value="">— Select an answer —</option>
+        <option value="yes">Yes correct URL</option>
+        <option value="no">No incorrect URL</option>
+      </select>
+    </div>
+
+    <div class="q-card">
+      <p class="q-num">Question 3</p>
+      <p class="q-text">Are they experiencing any errors or blocker BEFORE logging in?</p>
+      <select id="q3">
+        <option value="">— Select an answer —</option>
+        <option value="yes">Yes issues</option>
+        <option value="no">No issues</option>
+      </select>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-submit" id="btnSubmit">Submit</button>
+      <button class="btn-reset" id="btnReset">Reset</button>
+    </div>
+    <p class="error-msg" id="errorMsg">Please answer all three questions before submitting.</p>
+
+    <div class="result" id="resultBox">
+      <p class="result-eyebrow">Script</p>
+      <div class="script-body" id="scriptBody"></div>
+    </div>
+
+    <footer>Draft &middot; Clio Support Tool</footer>
+  </div>
+
+  <script>
+    var SCRIPTS = {
+      "yes-yes-no": [
+        "Send CX these steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Click the blue, \"Log in with Clio\" button",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)"
+      ],
+      "yes-no-no": [
+        "Send CX these steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Click the blue, \"Log in with Clio\" button",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)"
+      ],
+      "no-yes-no": [
+        "Send CX these steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Use the white login fields at the bottom of the page",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)",
+        "5. Once logged in, follow the on screen instructions to set up your Clio Login"
+      ],
+      "no-no-no": [
+        "Send CX these steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Use the white login fields at the bottom of the page",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)",
+        "5. Once logged in, follow the on screen instructions to set up your Clio Login"
+      ],
+      "yes-yes-yes": [
+        "Collect screenshots, or video of the issue, and check the Letter AI login issue page, for next steps:",
+        "LINK"
+      ],
+      "yes-no-yes": [
+        "Have customer go to the correct URL and try the following steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Click the blue, \"Log in with Clio\" button",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)",
+        "5. If this does not work, collect screenshots, or video of the issue, and check the Letter AI login issue page, for next steps:",
+        "LINK"
+      ],
+      "no-yes-yes": [
+        "Collect screenshots, or video of the issue, and check the Letter AI login issue page, for next steps:",
+        "LINK"
+      ],
+      "no-no-yes": [
+        "Have customer go to the correct URL and try the following steps:",
+        "",
+        "1. Go to https://draft.clio.com/signin/",
+        "2. Click the blue, \"Log in with Clio\" button",
+        "3. Enter your email address",
+        "4. Enter your password (reset if needed)",
+        "5. If this does not work, collect screenshots, or video of the issue, and check the Letter AI login issue page, for next steps:",
+        "LINK"
+      ]
+    };
+
+    var LETTER = "https://app.letter.ai/preview-content/custom-content?contentId=649dada1-a1fc-4337-a238-5dfe45ae2696";
+
+    document.getElementById("btnSubmit").addEventListener("click", function() {
+      var q1 = document.getElementById("q1").value;
+      var q2 = document.getElementById("q2").value;
+      var q3 = document.getElementById("q3").value;
+      var errorMsg = document.getElementById("errorMsg");
+      var resultBox = document.getElementById("resultBox");
+      var scriptBody = document.getElementById("scriptBody");
+
+      if (!q1 || !q2 || !q3) {
+        errorMsg.classList.add("show");
+        resultBox.classList.remove("show");
+        return;
+      }
+
+      errorMsg.classList.remove("show");
+
+      var key = q1 + "-" + q2 + "-" + q3;
+      var lines = SCRIPTS[key];
+
+      if (!lines) {
+        scriptBody.innerHTML = "No script found for this combination.";
+        resultBox.classList.add("show");
+        return;
+      }
+
+      var html = "";
+      for (var i = 0; i < lines.length; i++) {
+        if (lines[i] === "LINK") {
+          html += '<p><a href="' + LETTER + '" target="_blank">' + LETTER + '</a></p>';
+        } else if (lines[i] === "") {
+          html += '<div class="spacer"></div>';
+        } else {
+          html += "<p>" + lines[i] + "</p>";
+        }
+      }
+
+      scriptBody.innerHTML = html;
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    document.getElementById("btnReset").addEventListener("click", function() {
+      document.getElementById("q1").value = "";
+      document.getElementById("q2").value = "";
+      document.getElementById("q3").value = "";
+      document.getElementById("errorMsg").classList.remove("show");
+      document.getElementById("resultBox").classList.remove("show");
+      document.getElementById("scriptBody").innerHTML = "";
+    });
+  </script>
+</body>
+</html>
